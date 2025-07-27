@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="btn-group ml-2">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <button type="button"
+                class="btn btn-sm btn-light dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+             @UserManager.GetUserName(User)
+        </button>
+        <div class="dropdown-menu dropdown-menu-right shadow rounded-2">
+            <a class="dropdown-item"
+               asp-area="Identity"
+               asp-page="/Account/Manage/Index">
+                🛠️ Manage Account
+            </a>
+            <div class="dropdown-divider"></div>
+            <form method="post"
+                  asp-area="Identity"
+                  asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="dropdown-item text-danger">
+                    🚪 Logout
+                </button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <button type="button"
+                class="btn btn-sm btn-light dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            👤 My Account
+        </button>
+        <div class="dropdown-menu dropdown-menu-right shadow rounded-2">
+            <a class="dropdown-item"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+                🔐 Login
+            </a>
+            <a class="dropdown-item"
+               asp-area="Identity"
+               asp-page="/Account/Register">
+                ✍️ Register
+            </a>
+        </div>
+    }
+</div>
+

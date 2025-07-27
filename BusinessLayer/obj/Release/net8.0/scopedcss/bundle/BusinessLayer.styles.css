@@ -1,0 +1,10 @@
+@import '_content/ECommerce.Helper/ECommerce.Helper.a89dkkl6o7.bundle.scp.css';
+@import '_content/ECommerceDomains/ECommerceDomains.pc7h0hoz3n.bundle.scp.css';
+
+/* _content/BusinessLayer/Component1.razor.rz.scp.css */
+.my-component[b-56n6m1rewb] {
+    border: 2px dashed red;
+    padding: 1em;
+    margin: 1em 0;
+    background-image: url('background.png');
+}

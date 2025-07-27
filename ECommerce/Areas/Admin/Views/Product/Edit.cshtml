@@ -1,0 +1,121 @@
+﻿@model ProductVM
+
+@{
+    ViewBag.CardTitle = "Create New Product";
+    ViewBag.DashboardTitle = "Product Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body px-5 py-4 bg-light">
+                    <h3 class="text-center mb-4 fw-bold text-primary">Add New Product</h3>
+                    <form asp-controller="Product" asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="poducts.Id" />
+                        <input type="hidden" asp-for="poducts.Img" />
+                        <div class="row g-4">
+                            <div class="col-md-8">
+                                <div class="row g-4">
+                                    <!-- Product Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Product Name</label>
+                                        <input asp-for="poducts.Name" type="text" class="form-control border-primary-subtle shadow-sm">
+                                        <span asp-validation-for="poducts.Name" class="text-danger validation-message"></span>
+                                    </div>
+
+                                    <!-- Category -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Category</label>
+                                        <select asp-for="poducts.CategoryId" asp-items="Model.CagegorySelect" class="form-select border-primary-subtle shadow-sm">
+                                            <option disabled selected>-- Select Category --</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Prices -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Sales Price</label>
+                                        <input asp-for="poducts.Salesprices" type="text" step="0.01" class="form-control border-success-subtle shadow-sm" value="0.00">
+                                        <span asp-validation-for="poducts.Salesprices" class="text-danger validation-message"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Purchase Price</label>
+                                        <input asp-for="poducts.purchaseprices" type="text" step="0.01" class="form-control border-danger-subtle shadow-sm" value="0.00">
+                                        <span asp-validation-for="poducts.purchaseprices" class="text-danger validation-message"></span>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-semibold">Description</label>
+                                        <textarea asp-for="poducts.Description" class="form-control border-secondary-subtle shadow-sm" rows="3" placeholder="Enter product description"></textarea>
+                                        <span asp-validation-for="poducts.Description" class="text-danger validation-message"></span>
+                                    </div>
+
+                                    <!-- Upload Image -->
+                                    <div class="col-md-12">
+                                        <label for="inputGroupFile02" class="form-label fw-semibold">Upload Image</label>
+                                        <div class="input-group shadow-sm">
+                                            <input asp-for="poducts.Img" name="file" type="file" class="form-control" id="inputGroupFile02" accept="image/*">
+                                            <label class="input-group-text bg-primary text-white" for="inputGroupFile02">Upload</label>
+                                            <span asp-validation-for="poducts.Img" class="text-danger validation-message"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image Preview Section -->
+                            <div class="col-md-4 d-flex flex-column align-items-center justify-content-start">
+                                <div class="mb-3">
+                                    <h3 class="text-center">Current Image</h3>
+                                    <img src="@Url.Content(Model.poducts.Img?.Replace("\\", "/"))" id="ImgPreview" class="img-fluid rounded border shadow-sm" alt="Product Image" style="max-height: 250px;" />
+                                </div>
+                                <div>
+                                    <h3 class="text-center">New Image</h3>
+                                    <img id="SelectedImgPreview" src="#" alt="Selected Image Preview" class="img-fluid rounded shadow-sm" style="display:none; max-height:200px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="col-12 text-center mt-4">
+                            <input type="submit" value="Save" class="btn btn-primary btn-outline-light border-0 px-5 py-2 fw-bold shadow-sm" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    <script>
+        document.getElementById('inputGroupFile02').addEventListener('change', function (event) {
+            const [file] = event.target.files;
+            if (file) {
+                const preview = document.getElementById('SelectedImgPreview');
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!--
+    MacBook Pro
+Apple Laptop
+Screen Resolution 144Hz
+Screen Size 15.6 Inch
+16G Ram
+512 SSd
+Premium Laptop from Apple
+-->

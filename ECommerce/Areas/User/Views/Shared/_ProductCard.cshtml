@@ -1,0 +1,79 @@
+﻿@model TbPoducts
+
+@{
+    var random = new Random();
+    int number = random.Next(10,1001);
+}
+
+<style>
+    .product-item {
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .product-img {
+        width: 100%;
+        height: 300px; /* Bigger image area for premium look */
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .text-center a {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .product-action a {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .product-action a:hover {
+            background-color: #343a40;
+            color: #fff;
+        }
+</style>
+
+<div class="col-lg-3 col-md-4 col-sm-6 pb-1" asp-area="User" asp-controller="Home" asp-action="ProductDetails" asp-route-productId="@Model.Id">
+    <div class="product-item bg-light mb-4">
+            <div class="product-img position-relative">
+                <img class="img-fluid" src="@Model.Img" alt="">
+                <div class="product-action">
+                <a class="btn btn-outline-dark btn-square" asp-controller="Order" asp-action="ShoppingCart" asp-route-ProductId="@Model.Id"><i class="fa fa-shopping-cart"></i></a>
+                <a class="btn btn-outline-dark btn-square" asp-controller="Order" asp-action="WishListCart" asp-route-ProductId="@Model.Id"><i class="far fa-heart"></i></a>
+                </div>
+            </div>
+        
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" asp-area="User" asp-controller="Home" asp-action="ProductDetails" asp-route-productId="@Model.Id" asp-route-categoryId="@Model.CategoryId">@Model.Name</a>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+                <h5 class="mb-0">$@Model.purchaseprices</h5>
+                <h6 class="text-muted ml-2 mb-0"><del>$@Model.Salesprices</del></h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1 mt-1">
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small>(@number)</small>
+            </div>
+        </div>
+    </div>
+</div>
+

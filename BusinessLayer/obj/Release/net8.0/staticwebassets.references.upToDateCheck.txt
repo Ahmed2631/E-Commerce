@@ -1,0 +1,4 @@
+D:\1_Tech\Cv Projects\ECommerce\ECommerce\ECommerce.Helper\obj\Release\net8.0\staticwebassets.build.json
+D:\1_Tech\Cv Projects\ECommerce\ECommerce\ECommerceDomains\obj\Release\net8.0\staticwebassets.build.json
+D:\1_Tech\Cv Projects\ECommerce\ECommerce\ECommerce.Helper\obj\Release\net8.0\staticwebassets.build.json
+D:\1_Tech\Cv Projects\ECommerce\ECommerce\ECommerceDomains\obj\Release\net8.0\staticwebassets.build.json

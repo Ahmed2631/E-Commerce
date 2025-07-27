@@ -1,0 +1,64 @@
+﻿@model TbCategories
+
+@{
+    ViewBag.CardTitle = "Create New Category";
+    ViewBag.DashboardTitle = "Category Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-80 bg-body-tertiary">
+    <div class="card shadow-lg rounded-4 border-0 w-50">
+
+        <div class="card-header bg-gradient-primary rounded-top-2 d-flex justify-content-center align-items-center">
+            <h4 class="card-title fw-bold mb-0">📂 @ViewBag.CardTitle</h4>
+        </div>
+
+
+
+        <form asp-controller="Catogary" asp-action="Craete" method="post" enctype="multipart/form-data" role="form">
+            <div class="card-body px-4 py-4 bg-light">
+
+                <input type="hidden" asp-for="CategoryImg" />
+
+                <div class="mb-4">
+                    <label for="categoryName" class="form-label fw-semibold">Category Name</label>
+                    <input asp-for="Name" type="text" class="form-control border-primary-subtle shadow-sm" id="categoryName" placeholder="Enter category name">
+                    <span asp-validation-for="Name" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="categoryFactor" class="form-label fw-semibold">Category Factor</label>
+                    <input asp-for="CategoryFactor" type="text" class="form-control border-secondary-subtle shadow-sm" id="categoryFactor" placeholder="Enter factor">
+                    <span asp-validation-for="CategoryFactor" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="CategoryImg" class="form-label fw-semibold">Category Image</label>
+                    <input asp-for="CategoryImg" type="file" name="file" class="form-control border-secondary-subtle shadow-sm" id="categoryFactor" placeholder="Enter factor">
+                    <span asp-validation-for="CategoryImg" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="description" class="form-label fw-semibold">Description</label>
+                    <textarea asp-for="Description" class="form-control border-info-subtle shadow-sm" id="description" rows="3" placeholder="Add description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger validation-message"></span>
+                </div>
+
+            </div>
+
+            <div class="card-footer bg-white rounded-bottom-4 text-center">
+                <button type="submit" class="btn btn-gradient border-0 px-5 py-2 fw-bold shadow-sm"
+                        style="background-image: linear-gradient(to right, #1d6ce4, #4fb7f9); color: white;">
+                    ✅ Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

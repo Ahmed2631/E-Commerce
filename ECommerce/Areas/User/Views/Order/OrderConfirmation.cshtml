@@ -1,0 +1,237 @@
+﻿@model ShoppingCartVm
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-light: #6366f1;
+        --success: #10b981;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f9fafb;
+    }
+
+    .divider {
+        border-top: 1px dashed #e5e7eb;
+        margin: 1.5rem 0;
+    }
+
+    .order-item {
+        transition: all 0.2s ease;
+    }
+
+        .order-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+    .checkmark {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<!-- Style End-->
+
+<body class="min-h-screen bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <!-- Confirmation Header -->
+            <div class="px-6 py-8 text-center">
+                <div class="mx-auto flex justify-center">
+                    <div class="checkmark bg-green-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="mt-6 text-2xl font-bold text-gray-900">Order Confirmed!</h1>
+                <p class="mt-2 text-gray-600">Thank you for your purchase. Your order has been received and is being processed.</p>
+                <p class="mt-4 text-sm text-gray-500">Confirmation has been sent to your email address.</p>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="border-t border-gray-200 px-6 py-6">
+                <h2 class="text-lg font-medium text-gray-900">Order Summary</h2>
+                <div class="mt-6 flow-root">
+                    <ul class="divide-y divide-gray-200">
+                        @foreach (var item in Model.LstShoppingCart)
+                        {
+                            <li class="order-item flex py-6">
+                                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img src="@item.TbProducts.Img" alt="Modern wireless headphones in black with silver accents and noise cancellation features" class="h-full w-full object-cover object-center">
+                                </div>
+                                <div class="ml-4 flex flex-1 flex-col">
+                                    <div>
+                                        <div class="flex justify-between text-base font-medium text-gray-900">
+                                            <h3>@item.TbProducts.Name</h3>
+                                            <p class="ml-4">$@item.TbProducts.purchaseprices</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                        <p class="text-gray-500">Qty @item.Quantity</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="border-t border-gray-200 px-6 py-6">
+                <h2 class="text-lg font-medium text-gray-900">Order Details</h2>
+                <div class="mt-6 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Order Number</h3>
+                        <p class="mt-1 text-sm text-gray-900">@Model.OrderHeader.Id</p>
+
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Date Placed</h3>
+                        <p class="mt-1 text-sm text-gray-900">@Model.OrderHeader.OrderDate</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Payment Method</h3>
+                        <p class="mt-1 text-sm text-gray-900">  Credit Card (•••• •••• •••• @ViewBag.CardLast4)</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Shipping Method</h3>
+                        <p class="mt-1 text-sm text-gray-900">Express Shipping (2-3 business days)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Total -->
+            <div class="border-t border-gray-200 px-6 py-6">
+                <h2 class="text-lg font-medium text-gray-900">Order Total</h2>
+                <div class="mt-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-500">Subtotal</p>
+                        <p class="text-sm font-medium text-gray-900">$@Model.OrderHeader.TotalPrice</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-500">Shipping</p>
+                        <p class="text-sm font-medium text-gray-900">$10</p>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-gray-200 pt-4">
+                        <p class="text-base font-medium text-gray-900">Total</p>
+                        <p class="text-base font-medium text-gray-900">$@(Model.OrderHeader.TotalPrice + 10)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="border-t border-gray-200 px-6 py-6">
+                <div class="grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-6">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Shipping Address</h3>
+                        <p class="mt-2 text-sm text-gray-900">
+                            @Model.OrderHeader.UserName<br>
+                            @Model.OrderHeader.Adress<br>
+                            @Model.OrderHeader.City<br>
+                            No: @Model.OrderHeader.PhoneNumber<br>
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Billing Address</h3>
+                        <p class="mt-2 text-sm text-gray-900">
+                            Same as shipping address
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="border-t border-gray-200 px-6 py-6 bg-gray-50 text-center">
+                <p class="text-sm text-gray-500 mb-4">Need help? <a asp-controller="Home" asp-action="ContactUs" class="font-medium text-indigo-600 hover:text-indigo-500">Contact our support team</a></p>
+                <a asp-controller="Home" asp-action="Index" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+
+        <!-- Order Status Timeline -->
+        <div class="mt-8 bg-white shadow rounded-lg overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">Order Status</h2>
+            </div>
+            <div class="px-6 py-6">
+                <div class="flow-root">
+                    <ul class="-mb-8">
+                        <li class="relative pb-8">
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <div class="flex items-center justify-center h-8 w-8 bg-indigo-100 rounded-full ring-8 ring-white">
+                                        <svg class="h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="min-w-0 flex-1 pt-0.5">
+                                    <h4 class="text-sm font-medium text-gray-900">Order placed</h4>
+                                    <p class="text-sm text-gray-500">We've received your order</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative pb-8">
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <div class="flex items-center justify-center h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                        <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="min-w-0 flex-1 pt-0.5">
+                                    <h4 class="text-sm font-medium text-gray-900">Processing</h4>
+                                    <p class="text-sm text-gray-500">Your order is being prepared</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative pb-8">
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <div class="flex items-center justify-center h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                        <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1a1 1 0 011-1h2a1 1 0 011 1v1a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1V5a1 1 0 00-1-1H3zM3 5h2v2h5V5h5v2h5v1H3V5zm10 3h4v1h-4V8zm-5 3a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="min-w-0 flex-1 pt-0.5">
+                                    <h4 class="text-sm font-medium text-gray-900">Shipped</h4>
+                                    <p class="text-sm text-gray-500">Your order is on its way</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative">
+                            <div class="relative flex items-start space-x-3">
+                                <div class="relative">
+                                    <div class="flex items-center justify-center h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                        <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="min-w-0 flex-1 pt-0.5">
+                                    <h4 class="text-sm font-medium text-gray-900">Delivered</h4>
+                                    <p class="text-sm text-gray-500">Estimated arrival: June 18, 2023</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+

@@ -1,0 +1,471 @@
+﻿@model OrderConfirmationDetailsVm
+@using ECommerce.Helper;
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #198754;
+            --danger: #dc3545;
+            --border: #e0e0e0;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #495057;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 2rem 0;
+        }
+
+        .premium-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+            .premium-header h1 {
+                font-weight: 300;
+                font-size: 2.5rem;
+                color: var(--dark);
+                margin-bottom: 0.5rem;
+            }
+
+            .premium-header p {
+                color: var(--secondary);
+                font-size: 1.1rem;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+        .premium-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+            .premium-card:hover {
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            }
+
+        .premium-card-header {
+            background-color: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 1.5rem;
+            position: relative;
+        }
+
+            .premium-card-header::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(90deg, var(--primary), #6610f2);
+            }
+
+        .premium-card-title {
+            font-weight: 500;
+            font-size: 1.4rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+            .premium-card-title i {
+                margin-right: 12px;
+                color: var(--primary);
+                font-size: 1.6rem;
+            }
+
+        .premium-card-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .form-control {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            transition: var(--transition);
+        }
+
+            .form-control:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+            }
+
+            .form-control[readonly] {
+                background-color: var(--light);
+            }
+
+        .validation-message {
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        .order-status {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+            .order-item:last-child {
+                border-bottom: none;
+            }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-top: 2px solid var(--border);
+            margin-top: 0.5rem;
+        }
+
+        .btn-premium {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 0.75rem;
+        }
+
+            .btn-premium i {
+                margin-right: 8px;
+            }
+
+        .btn-update {
+            background-color: var(--primary);
+            color: white;
+        }
+
+            .btn-update:hover {
+                background-color: var(--primary-dark);
+                color: white;
+            }
+
+        .btn-process {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+            .btn-process:hover {
+                background-color: #e9ecef;
+            }
+
+        .btn-ship {
+            background-color: var(--success);
+            color: white;
+        }
+
+            .btn-ship:hover {
+                background-color: #157347;
+                color: white;
+            }
+
+        .btn-cancel {
+            background-color: var(--danger);
+            color: white;
+        }
+
+            .btn-cancel:hover {
+                background-color: #bb2d3b;
+                color: white;
+            }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        media (max-width: 992px) {
+            .grid-2
+
+        {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        }
+
+        .premium-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 1.5rem 0;
+        }
+
+        .item-details h6 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-details .text-muted {
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--success);
+        }
+    </style>
+
+
+
+    <div class="container">
+        <div class="premium-header">
+            <h1>Order Management</h1>
+            <p class="lead">Manage customer orders with our premium interface</p>
+        </div>
+
+    <form method="post" asp-controller="OrderDetails" asp-action="Details" enctype="multipart/form-data">
+            <input hidden asp-for="orderHeader.Id" />
+
+            <div class="row">
+                <!-- Left Column - Pickup Details -->
+                <div class="col-lg-6">
+                    <div class="premium-card">
+                        <div class="premium-card-header">
+                            <h3 class="premium-card-title">
+                                <i class="fas fa-truck-loading"></i> Pickup Details
+                            </h3>
+                        </div>
+                        <div class="premium-card-body">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                <input asp-for="orderHeader.UserName" type="text" class="form-control">
+                                <span asp-validation-for="orderHeader.UserName" class="text-danger validation-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Phone</label>
+                                <input asp-for="orderHeader.PhoneNumber" type="text" class="form-control">
+                                <span asp-validation-for="orderHeader.PhoneNumber" class="text-danger validation-message"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Address</label>
+                                <input asp-for="orderHeader.Adress" type="text" class="form-control">
+                                <span asp-validation-for="orderHeader.Adress" class="text-danger validation-message"></span>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">City</label>
+                                    <input type="text" asp-for="orderHeader.City" class="form-control">
+                                    <span asp-validation-for="orderHeader.City" class="text-danger validation-message"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input asp-for="orderHeader.ApplicationUser.Email" readonly type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Order Date</label>
+                                    <input value="@Model.orderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Shipping Date</label>
+                                    <input value="@Model.orderHeader.ShippingDate.ToShortDateString()" readonly type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Admin Data -->
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Carrier</label>
+                                    <input asp-for="orderHeader.Carrier" id="carrier" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Tracking Number</label>
+                                    <input asp-for="orderHeader.TrackingNum" id="tracking" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Server Data -->
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Session ID</label>
+                                    <input type="text" asp-for="orderHeader.SessionId" readonly class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Payment Intent ID</label>
+                                    <input type="text" asp-for="orderHeader.PaymentInteniD" readonly class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Payment Date</label>
+                                    <input value="@Model.orderHeader.PaymentDate.ToShortDateString()" readonly type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Payment Status</label>
+                                    <input type="text" asp-for="orderHeader.PaymentStatus" class="form-control">
+                                </div>
+                            </div>
+
+                            <button type="submit"  class="btn btn-update btn-premium">
+                                <i class="fas fa-save"></i> Update Pickup Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Order Summary -->
+                <div class="col-lg-6">
+                    <div class="premium-card h-100">
+                        <div class="premium-card-header">
+                            <h3 class="premium-card-title">
+                                <i class="fas fa-receipt"></i> Order Summary
+                            </h3>
+                        </div>
+                        <div class="premium-card-body">
+                            <div class="order-status">
+                                <i class="fas fa-check-circle me-2"></i> Order Status: @Model.orderHeader.OrderStatus
+                            </div>
+
+                            <h5 class="mb-3 fw-semibold">Order Items</h5>
+
+                            <div class="order-items">
+
+                            @foreach (var item in Model.orderDetails)
+                            {
+                                <div class="order-item">
+                                    <div class="item-details">
+                                        <h6 class="mb-1">@item.Product.Name</h6>
+                                        <div class="text-muted">Price: $@item.Product.purchaseprices · Qty: @item.Count</div>
+                                    </div>
+                                    <div class="item-price">$@item.Price</div>
+                                </div>
+                            }
+                            
+
+
+                            </div>
+
+                            <div class="premium-divider"></div>
+
+                            <div class="order-total">
+                                <span>TOTAL</span>
+                                <span>$@Model.orderHeader.TotalPrice</span>
+                            </div>
+
+                            <div class="mt-4">
+                            @if(Model.orderHeader.OrderStatus == SolidStatement.Approve)
+                            {
+                                <button type="submit" asp-action="StartProccess" class="btn btn-process btn-premium">
+                                    <i class="fas fa-cogs"></i> Start Processing
+                                </button>
+                            }    
+                                    <!-- CheckData -->
+                            @if (Model.orderHeader.OrderStatus == SolidStatement.Proccessing)
+                            {
+                                <button type="submit" asp-action="StartShip" onclick="return CheckData()" class="btn btn-ship btn-premium">
+                                    <i class="fas fa-shipping-fast"></i> Start Shipping
+                                </button>
+                            }
+                            
+                            @if (Model.orderHeader.OrderStatus != SolidStatement.Cancelled  ||
+                                 Model.orderHeader.OrderStatus != SolidStatement.Refund )
+                            {
+                                <button type="submit" asp-action="CancelOrder" class="btn btn-cancel btn-premium">
+                                    <i class="fas fa-times-circle"></i> Cancel Order
+                                </button>
+                            }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Form validation example
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const nameInput = document.querySelector('input[name="OrderHeader.Name"]');
+        const phoneInput = document.querySelector('input[name="OrderHeader.PhoneNumber"]');
+        let isValid = true;
+
+        if (!nameInput.value.trim()) {
+            isValid = false;
+            nameInput.classList.add('is-invalid');
+        } else {
+            nameInput.classList.remove('is-invalid');
+        }
+
+        if (!phoneInput.value.trim() || !/^\d{10,}$/.test(phoneInput.value)) {
+            isValid = false;
+            phoneInput.classList.add('is-invalid');
+        } else {
+            phoneInput.classList.remove('is-invalid');
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+
+    function CheckData() {
+        const carrier = document.getElementById('carrier').value;
+        const tracking = document.getElementById('tracking').value;
+
+        if (!carrier || !tracking || carrier=="Waiting For Carrier" ) {
+            alert('Please enter carrier and tracking information before shipping.');
+            return false;
+        }
+        return true;
+    }
+    </script>

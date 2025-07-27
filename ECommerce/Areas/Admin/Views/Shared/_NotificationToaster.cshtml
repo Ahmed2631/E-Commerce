@@ -1,0 +1,45 @@
+﻿@if (TempData["Create"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr["success"]("@TempData["Create"]")
+    </script>
+}
+
+@if (TempData["Update"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr["info"]("@TempData["Update"]")
+	</script>
+}
+
+
+@if (TempData["Delete"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr["error"]("@TempData["Delete"]")
+	</script>
+}
+
+@if (TempData["OrderUpdate"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr["info"]("@TempData["OrderUpdate"]")
+	</script>
+}
+
+@if (TempData["OrderDeleted"] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr["error"]("@TempData["OrderUpdate"]")
+	</script>
+}

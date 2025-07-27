@@ -1,0 +1,64 @@
+﻿@model List<ApplicationUser>
+
+@{
+    ViewBag.CardTitle = "User Management";
+    ViewBag.DashboardTitle = "User Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<a class="btn btn-primary btn-lg m-lg-auto" asp-area="Identity" asp-page="/Account/Register">Create New User</a>
+
+<div class="card mb-12">
+    <div class="card-header"><h3 class="card-title">@ViewBag.CardTitle</h3></div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table name="productTable" class="table table-bordered">
+
+            <thead class="">
+                <tr>
+                    <th class="m-auto">Email</th>
+                    <!-- <th class="justify-content-center">Roles</th> -->
+                    <th class="m-auto">Phone</th>
+                    <th class="m-auto">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Email</td>
+                        <td>@item.PhoneNumber</td>
+                        <td class="text-center">
+                            @if (item.LockoutEnd == null || item.LockoutEnd == DateTime.Now)
+                            {
+                                <a class="btn btn-sm btn-outline-success fw-semibold me-1" asp-controller="UserManagement" asp-action="LockUnlock" asp-route-UserId="@item.Id">
+                                    <i class="fas fa-lock-open"> UnLock </i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm btn-outline-danger fw-semibold me-1" asp-controller="UserManagement" asp-action="LockUnlock" asp-route-UserId="@item.Id">
+                                    🔐 Lock
+                                </a>
+                            }
+
+                            <a class="btn btn-sm btn-outline-danger fw-semibold" asp-controller="UserManagement" asp-action="DeleteAcc" asp-route-UserId="@item.Id">
+                                ❌ Delete Acc
+                            </a>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+@section ProductJs{
+    <script src="~/js/ProductJs.js"></script>
+}
+
+
+

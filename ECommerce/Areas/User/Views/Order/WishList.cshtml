@@ -1,0 +1,250 @@
+﻿@model WishlistCart
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #5e35b1;
+            --primary-light: #7c4dff;
+            --secondary: #ff6d00;
+            --dark: #1a1a1a;
+            --light: #f5f5f7;
+        }
+
+        font -face {
+            font-family: 'Luxury';
+            src: url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap');
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--dark);
+            background-color: #fafafa;
+        }
+
+        .breadcrumb {
+            background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fb 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            }
+
+        .heart-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        keyframes pulse {
+            0%
+
+        {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border: none;
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(94, 53, 177, 0.4);
+            }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff5252 0%, #ff6d00 100%);
+            border: none;
+        }
+    </style>
+
+
+
+    <!-- Premium Breadcrumb Navigation -->
+    <div class="container mx-auto px-4 lg:px-8 py-6">
+        <div class="breadcrumb rounded-xl py-4 px-6 mb-8 ">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a asp-controller="Home" asp-action="Index" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600">
+                            <i class="fas fa-home mr-2 text-primary"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                                <a asp-controller="Home" asp-action="Shop" class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Shop</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="ml-1 text-sm font-medium text-primary-600 md:ml-2">Wishlist</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Premium Wishlist Section -->
+        <div class="max-w-7xl mx-auto">
+            
+
+  
+            @if (Model.CountWishlist == 0)
+            {
+                <!-- Empty Wishlist State -->
+                <div id="empty-wishlist" class="bg-white rounded-xl shadow-sm p-12 text-center hidden">
+                    <div class="mb-6 mx-auto w-24 h-24 rounded-full bg-gradient-to-r from-pink-100 to-purple-100 flex items-center justify-center">
+                        <i class="fas fa-heart-broken text-4xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Your Wishlist is Empty</h3>
+                    <p class="text-gray-500 max-w-lg mx-auto mb-6">Discover luxury items you'll love and add them to your wishlist. They'll appear here for easy access whenever you're ready.</p>
+                    <a href="~/User/Home/Index" class="btn-primary text-white py-3 px-8 rounded-full inline-block">
+                        <i class="fas fa-plus mr-2"></i> Browse Collection
+                    </a>
+                </div>
+            }
+            else
+            {
+
+                <div class="flex justify-between items-center mb-10">
+                    <h1 class="text-3xl font-bold text-dark flex items-center">
+                        <i class="fas fa-heart text-primary mr-3 heart-pulse"></i> Your Wishlist
+                    </h1>
+                </div>
+                    <!-- Wishlist Items -->
+                    <div id="wishlist-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        @foreach (var item in Model.WishlistItems)
+                        {
+                            <!-- Sample Wishlist Item 1 -->
+                            <div class="product-card group relative">
+                                <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a asp-controller="Order" asp-action="RemoveProductFWislList" asp-route-cartId="@item.Id">
+                                        <button class="remove-btn text-red-500 hover:text-red-700" data-id="1">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="overflow-hidden h-64">
+                                    <img src="@item.Img" alt="Premium chronograph watch with rose gold casing on marble background" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold mb-1">@item.Name</h3>
+                                    <p class="text-gray-500 text-sm mb-3">@item.Category</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xl font-bold text-primary">$@item.purchaseprices</span>
+                                        <a asp-controller="Order" asp-action="ShoppingCart" asp-route-ProductId="@item.Id">
+                                            <button class="add-to-cart-btn bg-info text-white py-2 px-4 rounded-full text-xs hover:bg-primary-light transition">
+                                                <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+
+                    </div>
+            }
+
+       
+
+            
+        </div>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Toggle between empty and populated wishlist state for demo
+          const toggleWishlistState = document.getElementById('toggle-state');
+
+          // Remove item functionality
+          document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const itemId = this.getAttribute('data-id');
+              const item = this.closest('.product-card');
+              item.classList.add('opacity-0', 'scale-90', 'transition-all', 'duration-300');
+
+              // Remove after animation completes
+              setTimeout(() => {
+                item.remove();
+
+                // Check if wishlist is now empty
+                if (document.querySelectorAll('#wishlist-items .product-card').length === 0) {
+                  document.getElementById('wishlist-items').classList.add('hidden');
+                  document.getElementById('empty-wishlist').classList.remove('hidden');
+                }
+              }, 300);
+            });
+          });
+
+          // Add to cart functionality
+          document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productCard = this.closest('.product-card');
+              productCard.classList.add('transform', 'scale-95');
+
+              // Show added notification
+              const notification = document.createElement('div');
+              notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center';
+              notification.innerHTML = `
+                <i class="fas fa-check-circle mr-3"></i>
+                <span>Added to cart successfully</span>
+              `;
+              document.body.appendChild(notification);
+
+              // Remove notification after 3 seconds
+              setTimeout(() => {
+                notification.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+              }, 3000);
+            });
+          });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+

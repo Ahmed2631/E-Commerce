@@ -1,0 +1,94 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<style>
+    .btn-gradient {
+        background: linear-gradient(135deg, #007bff, #6f42c1);
+        color: white;
+        border: none;
+        transition: box-shadow 0.3s ease;
+    }
+
+        .btn-gradient:hover {
+            box-shadow: 0 0 12px rgba(111, 66, 193, 0.4);
+        }
+
+    .form-control {
+        border-radius: 50px;
+        padding-left: 1.5rem;
+    }
+
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-4 border-0 bg-light p-4">
+                <h2 class="text-center fw-bold text-dark mb-4">Log in to Your Account</h2>
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                    <div class="form-floating mb-4">
+                        <label asp-for="Input.Email" class="form-label">📧 Email</label>
+                        <input asp-for="Input.Email" class="form-control rounded-pill" placeholder="name@example.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <label asp-for="Input.Password" class="form-label">🔒 Password</label>
+                        <input asp-for="Input.Password" class="form-control rounded-pill" placeholder="••••••••" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3 ps-2">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">Remember Me</label>
+                    </div>
+
+                    <button id="login-submit" type="submit" class="btn btn-gradient w-100 py-2 fw-semibold rounded-pill">🔑 Log in</button>
+
+                    <hr class="my-4" />
+                    <div class="text-center small">
+                        <p><a asp-page="./ForgotPassword">Forgot your password?</a></p>
+                        <p><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a></p>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-4 mt-md-0">
+            <div class="card bg-white shadow-sm rounded-4 p-4">
+                <h3 class="text-center fw-semibold text-muted mb-3">Log in with a Service</h3>
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div class="alert alert-warning text-center">
+                            No external login options available. <a href="https://go.microsoft.com/fwlink/?LinkID=532715">See setup guide</a>.
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="text-center">
+                            @foreach (var provider in Model.ExternalLogins!)
+                            {
+                                <button type="submit" class="btn btn-outline-dark mx-2 my-1 rounded-pill" name="provider" value="@provider.Name">
+                                    🔗 @provider.DisplayName
+                                </button>
+                            }
+                        </form>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

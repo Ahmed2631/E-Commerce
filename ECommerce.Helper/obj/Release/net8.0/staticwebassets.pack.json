@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\1_Tech\\Cv Projects\\ECommerce\\ECommerce\\ECommerce.Helper\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\ECommerce.Helper.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ECommerce.Helper.a89dkkl6o7.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\1_Tech\\Cv Projects\\ECommerce\\ECommerce\\ECommerce.Helper\\wwwroot\\background.png",
+      "PackagePath": "staticwebassets\\background.png"
+    },
+    {
+      "Id": "D:\\1_Tech\\Cv Projects\\ECommerce\\ECommerce\\ECommerce.Helper\\wwwroot\\exampleJsInterop.js",
+      "PackagePath": "staticwebassets\\exampleJsInterop.js"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.ECommerce.Helper.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.ECommerce.Helper.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.ECommerce.Helper.props",
+      "PackagePath": "build\\ECommerce.Helper.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ECommerce.Helper.props",
+      "PackagePath": "buildMultiTargeting\\ECommerce.Helper.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.ECommerce.Helper.props",
+      "PackagePath": "buildTransitive\\ECommerce.Helper.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

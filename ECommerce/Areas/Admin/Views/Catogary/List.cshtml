@@ -1,0 +1,52 @@
+﻿@model List<TbCategories>
+
+@{
+    ViewBag.CardTitle = "Category Table";
+    ViewBag.DashboardTitle = "Category Management";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; 
+}
+
+<a class="btn btn-lg btn-gradient border-0 text-white px-4 py-2 mb-4 shadow-sm" asp-controller="Catogary" asp-action="Craete"
+   style="background-image: linear-gradient(to right, #1d6ce4, #4fb7f9);">
+  ➕ Create Category
+</a>
+
+<div class="card border-0 shadow rounded-4 mb-5">
+  <div class="card-header bg-primary text-white rounded-top-4">
+    <h3 class="card-title fw-bold mb-0">@ViewBag.CardTitle</h3>
+  </div>
+
+  <div class="card-body bg-light px-4 py-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle rounded overflow-hidden">
+        <thead class="table-primary">
+          <tr>
+            <th style="width: 10px">#ID</th>
+            <th>Name</th>
+            <th>Factor</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach(var item in Model)
+          {
+            <tr>
+              <td>@item.Id</td>
+              <td>@item.Name</td>
+              <td>@item.CategoryFactor</td>
+              <td class="text-center">
+                <a class="btn btn-sm btn-outline-success fw-semibold me-1" asp-controller="Catogary" asp-action="Edit" asp-route-id="@item.Id">
+                  ✏️ Edit
+                </a>
+                <a class="btn btn-sm btn-outline-danger fw-semibold" asp-controller="Catogary" asp-action="DeleteCategory" asp-route-id="@item.Id">
+                  ❌ Delete
+                </a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

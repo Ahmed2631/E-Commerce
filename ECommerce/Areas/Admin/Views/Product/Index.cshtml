@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewBag.CardTitle = "Product Table";
+    ViewBag.DashboardTitle = "Product Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="">
+    <a class="btn btn-outline-primary btn-lg mb-3" asp-controller="Product" asp-action="Craete">
+        <i class="fas fa-plus-circle"></i> Add New Product
+    </a>
+
+
+
+    <div class="card shadow-lg border-primary mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title"><i class="fas fa-box-open"></i> @ViewBag.CardTitle</h3>
+        </div>
+
+        <div class="card-body">
+            <table id="productTable" class="table table-hover table-bordered table-striped">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th><i class="fas fa-tag"></i> Name</th>
+                        <th><i class="fas fa-th-large"></i> Category</th>
+                        <th><i class="fas fa-money-bill-wave"></i> Purchase Price</th>
+                        <th><i class="fas fa-money-check-alt"></i> Sales Price</th>
+                        <th><i class="fas fa-chart-line"></i> Profit</th>
+                        <th><i class="fas fa-cogs"></i> Action</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section ProductJs{
+    <script src="/js/ProductsJs.js"></script>
+}

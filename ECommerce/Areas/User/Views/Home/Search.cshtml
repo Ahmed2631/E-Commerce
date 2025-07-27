@@ -1,0 +1,69 @@
+﻿@model Search
+
+<!-- 🌐 Breadcrumb -->
+<div class="container my-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white p-3 shadow-sm rounded">
+            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Home/Shop">Search Result</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Search Result</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- 🛍️ Shop Area -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- 🔘 View Toggle -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold text-dark mb-0">
+                    @{
+                        string sectionTitle = Model.Query != null
+                        ? $"Search Results for: {Model.Query}"
+                        : "Recommended Products for You";
+                    }
+
+                </h4>
+
+                <div class="btn-group shadow-sm" role="group" aria-label="Toggle View">
+                    <button class="btn btn-outline-dark" title="Grid View">
+                        <i class="fa fa-th-large"></i>
+                    </button>
+                    <button class="btn btn-outline-dark" title="List View">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 🧩 Product Cards -->
+            <div class="row g-4">
+                @if (Model.Query != null)
+                {
+                    <h3 class="fw-bold text-dark mb-4">@sectionTitle</h3>
+                }
+                @foreach (var item in Model.SearchResults)
+                {
+                    <partial name="_ProductCard" model="item" />
+                }
+
+                @if (Model.Query != null && Model.SearchResultsExtra.Any())
+                {
+                    <div class="col-12">
+                        <h5 class="mt-4 text-muted">You May Also Like</h5>
+                    </div>
+                }
+
+                @foreach (var item in Model.SearchResultsExtra)
+                {
+                    <partial name="_ProductCard" model="item" />
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<!---->
+
+

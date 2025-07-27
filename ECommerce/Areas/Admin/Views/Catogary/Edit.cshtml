@@ -1,0 +1,67 @@
+﻿@model TbCategories
+
+@{
+    ViewBag.CardTitle = "Edit Category";
+    ViewBag.DashboardTitle = "Category Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <div class="card-header"><div class="card-title">Category Form</div></div>
+
+    <!--begin::Form-->
+    <form asp-controller="Catogary" asp-action="Edit" role="form" method="post" 
+          enctype="multipart/form-data">
+
+		<input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CategoryImg" />
+        <!--begin::Body-->
+        <div class="card-body">
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                <input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <span asp-validation-for="Name" class="text-danger validation-message"></span>
+                <div id="emailHelp" class="form-text">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Category Factor</label>
+                <input asp-for="CategoryFactor" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <span asp-validation-for="CategoryFactor" class="text-danger validation-message"></span>
+                <div id="emailHelp" class="form-text">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Category Image</label>
+                <input asp-for="CategoryImg" type="file" name="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <span asp-validation-for="CategoryImg" class="text-danger validation-message"></span>
+                <div id="emailHelp" class="form-text">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Description</label>
+                <input asp-for="Description" type="text" class="form-control" id="exampleInputPassword1">
+                <span asp-validation-for="Description" class="text-danger validation-message"></span>
+            </div>
+
+        </div>
+
+
+        <div class="card-footer">
+            <button type="submit"  class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+    <!--end::Form-->
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
